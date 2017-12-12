@@ -22,6 +22,9 @@ public class Child {
 	@OneToMany(mappedBy = "child")
 	private Set<Checkin> checkins = new HashSet<>();
 
+	@OneToMany(mappedBy = "child")
+	private Set<Checkin> checkouts = new HashSet<>();
+
 	private boolean checkedin;
 
 	public boolean getCheckedin() {
@@ -34,7 +37,6 @@ public class Child {
 
 	public Child(String name) {
 		this.name = name;
-		// this.checkedin = false;
 	}
 
 	// for JPA
@@ -55,6 +57,7 @@ public class Child {
 
 	@Override
 	public String toString() {
-		return "Child [id=" + id + ", name=" + name + ", checkins=" + checkins + ", checkedin=" + checkedin + "]";
+		return "Child [id=" + id + ", name=" + name + ", checkins=" + checkins + ", checkouts=" + checkouts
+				+ ", checkedin=" + checkedin + "]";
 	}
 }
