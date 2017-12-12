@@ -1,13 +1,13 @@
 package nursery;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 
 import org.junit.Before;
@@ -19,10 +19,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.context.WebApplicationContext;
 
 import nursery.dao.ChildRepository;
+import nursery.dao.ContactRepository;
+import nursery.dao.RelationshipRepository;
+import nursery.dao.UserRepository;
 import nursery.model.Checkin;
 import nursery.model.Child;
 import nursery.services.CheckinService;
@@ -33,7 +35,11 @@ import nursery.services.CheckoutService;
 @WebAppConfiguration
 public class ApplicationTest {
 
-	private static final String ID_TAG = "\"id\":";
+	private static final String ZERO = "0";
+
+	private static final String STOP_PARAMETER = "stop";
+
+	private static final String START_PARAMETER = "start";
 
 	private static final String CHECKINS_PATH = "/checkins/";
 
@@ -72,24 +78,37 @@ public class ApplicationTest {
 	@Autowired
 	private ChildRepository childRepository;
 
+	@Autowired
+	private RelationshipRepository relationshipRepository;
+
+	@Autowired
+	private ContactRepository contactRepository;
+
+	@Autowired
+	private UserRepository userRepository;
+
 	@Before
 	public void setup() throws Exception {
 		mockMvc = webAppContextSetup(webApplicationContext).build();
 		checkinRepository.deleteAllInBatch();
 		checkoutRepository.deleteAllInBatch();
+		relationshipRepository.deleteAllInBatch();
+		contactRepository.deleteAllInBatch();
 		childRepository.deleteAllInBatch();
+		userRepository.deleteAllInBatch();
+
 		child = childRepository.save(new Child(CHILD_ID));
 	}
 
 	@Test
 	public void childFound() throws Exception {
-		mockMvc.perform(get(CHILDREN_PATH + child.getId()).contentType(contentType)).andExpect(status().isOk());
+		mockMvc.perform(get(CHILDREN_PATH + child.getId()).contentType(contentType)).andExpect(status().isOk())
+				.andExpect(content().contentType(contentType));
 	}
 
 	@Test
 	public void childrenNonEmpty() throws Exception {
-		mockMvc.perform(get(CHILDREN_PATH).contentType(contentType))
-				.andDo(result -> assertTrue(doesContentContainAnEntry(result)));
+		mockMvc.perform(get(CHILDREN_PATH).contentType(contentType)).andExpect(jsonPath("$", hasSize(1)));
 	}
 
 	@Test
@@ -144,8 +163,21 @@ public class ApplicationTest {
 		checkinService.createCheckin(child.getId());
 		checkoutService.createCheckout(child.getId());
 
-		mockMvc.perform(get(REPORT_PATH).param("start", "0").param("stop", "0").contentType(contentType))
-				.andDo(result -> assertTrue(doesContentContainAnEntry(result)));
+		mockMvc.perform(
+				get(REPORT_PATH).param(START_PARAMETER, ZERO).param(STOP_PARAMETER, ZERO).contentType(contentType))
+				.andExpect(jsonPath("$.checkins", hasSize(2)));
+	}
+
+	@Test
+	public void showOneAttendance() throws Exception {
+		Checkin first = checkinService.createCheckin(child.getId());
+		checkoutService.createCheckout(child.getId());
+		checkinService.createCheckin(child.getId());
+		checkoutService.createCheckout(child.getId());
+
+		mockMvc.perform(get(REPORT_PATH).param(START_PARAMETER, ZERO)
+				.param(STOP_PARAMETER, Long.toString(first.getTimestamp() + 1)).contentType(contentType))
+				.andExpect(jsonPath("$.checkins", hasSize(1))).andExpect(jsonPath("$.checkouts", hasSize(0)));
 	}
 
 	@Test
@@ -155,14 +187,8 @@ public class ApplicationTest {
 		checkinService.createCheckin(child.getId());
 		checkoutService.createCheckout(child.getId());
 
-		mockMvc.perform(get(REPORT_PATH).param("start", "0").param("stop", Long.toString(first.getTimestamp() - 1))
-				.contentType(contentType)).andDo(result -> assertFalse(doesContentContainAnEntry(result)));
-	}
-
-	// this quick validation of content could be replaced with parsing and
-	// comparing all details
-	private boolean doesContentContainAnEntry(MvcResult result) throws UnsupportedEncodingException {
-		String contentAsString = result.getResponse().getContentAsString();
-		return contentAsString.contains(ID_TAG);
+		mockMvc.perform(get(REPORT_PATH).param(START_PARAMETER, ZERO)
+				.param(STOP_PARAMETER, Long.toString(first.getTimestamp() - 1)).contentType(contentType))
+				.andExpect(jsonPath("$.checkins", hasSize(0)));
 	}
 }

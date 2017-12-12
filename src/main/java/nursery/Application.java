@@ -1,12 +1,21 @@
 package nursery;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import nursery.model.Address;
 import nursery.model.Child;
+import nursery.model.Contact;
+import nursery.model.Relationship;
+import nursery.model.RelationshipType;
+import nursery.model.User;
 import nursery.services.CheckinService;
 import nursery.services.CheckoutService;
 import nursery.services.ChildService;
@@ -34,6 +43,23 @@ public class Application {
 		checkoutService.createCheckout(child3.getId());
 		checkinService.createCheckin(child3.getId());
 
+		Set<Contact> contacts = new HashSet<>();
+		User user = new User("aaaaaa", contacts, "123");
+
+		Contact emptyContact = new Contact("empty", null, Collections.emptySet());
+		childService.saveContact(emptyContact);
+
+		Address address = new Address("aaaaaa");
+		Set<Relationship> relationships = new HashSet<>();
+		Contact contact = new Contact("123", address, relationships);
+		relationships.add(new Relationship(RelationshipType.MOTHER, contact, child1));
+		relationships.add(new Relationship(RelationshipType.GRANDMA, contact, child2));
+		childService.saveContact(contact);
+		contacts.add(contact);
+
+		childService.saveUser(user);
+		contact.setUser(user);
+		childService.saveContact(contact);
 		return null;
 	}
 }

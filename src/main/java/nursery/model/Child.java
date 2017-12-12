@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,8 +20,15 @@ public class Child {
 	@Column(nullable = false)
 	private String name;
 
+	@Column(nullable = false)
+	@Embedded
+	private Address address;
+
 	@OneToMany(mappedBy = "child")
 	private Set<Checkin> checkins = new HashSet<>();
+
+	@OneToMany(mappedBy = "child")
+	private Set<Checkin> checkouts = new HashSet<>();
 
 	private boolean checkedin;
 
@@ -34,7 +42,6 @@ public class Child {
 
 	public Child(String name) {
 		this.name = name;
-		// this.checkedin = false;
 	}
 
 	// for JPA
@@ -55,6 +62,15 @@ public class Child {
 
 	@Override
 	public String toString() {
-		return "Child [id=" + id + ", name=" + name + ", checkins=" + checkins + ", checkedin=" + checkedin + "]";
+		return "Child [id=" + id + ", name=" + name + ", address=" + address + ", checkins=" + checkins + ", checkouts="
+				+ checkouts + ", checkedin=" + checkedin + "]";
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 }
