@@ -14,19 +14,28 @@ mvn package
 
 ## Operation
 
-### When started, the system contains demo data so GET requests to see children:
+### Children details
+
+When started, the system contains demo data so GET requests to see children data:
+
 http://localhost:8080/children/
 
 http://localhost:8080/children/1
 
 http://localhost:8080/children?checkedIn=true
 
-### Checkins and checkouts use different endpoints and you can check in or out a child by posting here:
+### Checkins and checkouts
+
+Checkins and checkouts use different endpoints and you can check in or out a child by posting here:
+
 http://localhost:8080/children/1/checkins
 
 http://localhost:8080/children/1/checkouts
 
-### Both checkins and checkouts can be fetched using an endpoint:
+### Reporting
+
+Both checkins and checkouts can be fetched using an endpoint:
+
 http://localhost:8080/report?start=0&stop=1512837144035
 
 Parameters: start and stop are mandatory and require a timestamp. Currently values 0 skip any filtering (for the demo purposes).
