@@ -19,7 +19,7 @@ public class Checkin {
 	private long timestamp;
 
 	// for JPA
-	public Checkin() {
+	protected Checkin() {
 	}
 
 	public Checkin(Child child, long timestamp) {

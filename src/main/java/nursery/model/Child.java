@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -19,10 +20,10 @@ public class Child {
 	@Column(nullable = false)
 	private String name;
 
-	@OneToMany(mappedBy = "child")
+	@OneToMany(mappedBy = "child", fetch = FetchType.LAZY)
 	private Set<Checkin> checkins = new HashSet<>();
 
-	@OneToMany(mappedBy = "child")
+	@OneToMany(mappedBy = "child", fetch = FetchType.LAZY)
 	private Set<Checkin> checkouts = new HashSet<>();
 
 	private boolean checkedin;
@@ -40,7 +41,7 @@ public class Child {
 	}
 
 	// for JPA
-	public Child() {
+	protected Child() {
 	}
 
 	public Long getId() {

@@ -19,7 +19,7 @@ public class Checkout {
 	private long timestamp;
 
 	// for JPA
-	public Checkout() {
+	protected Checkout() {
 	}
 
 	public Checkout(Child child, long timestamp) {
