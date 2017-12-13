@@ -39,7 +39,7 @@ class ReportController {
 			checkins = checkinRepository.findByTimestampBetween(start, stop);
 			checkouts = checkoutRepository.findByTimestampBetween(start, stop);
 		}
-		Report report = new Report(checkins, checkouts);
+		Report report = new Report(start, stop, checkins, checkouts);
 		return report;
 	}
 }
