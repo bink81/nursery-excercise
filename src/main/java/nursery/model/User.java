@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class User {
 
@@ -17,6 +19,7 @@ public class User {
 
 	private String username;
 
+	@JsonIgnore
 	private String password;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
