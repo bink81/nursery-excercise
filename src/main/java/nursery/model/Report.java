@@ -6,8 +6,12 @@ public class Report {
 
 	private final Collection<Checkin> checkins;
 	private final Collection<Checkout> checkouts;
+	private final long start;
+	private final long stop;
 
-	public Report(Collection<Checkin> checkins, Collection<Checkout> checkouts) {
+	public Report(long start, long stop, Collection<Checkin> checkins, Collection<Checkout> checkouts) {
+		this.start = start;
+		this.stop = stop;
 		this.checkins = checkins;
 		this.checkouts = checkouts;
 	}
@@ -23,5 +27,13 @@ public class Report {
 	@Override
 	public String toString() {
 		return "Report [checkins=" + checkins + ", checkouts=" + checkouts + "]";
+	}
+
+	public long getStart() {
+		return start;
+	}
+
+	public long getStop() {
+		return stop;
 	}
 }

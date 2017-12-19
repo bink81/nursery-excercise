@@ -22,6 +22,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 import nursery.dao.ChildRepository;
+import nursery.dao.ContactRepository;
+import nursery.dao.RelationshipRepository;
+import nursery.dao.UserRepository;
 import nursery.model.Checkin;
 import nursery.model.Child;
 import nursery.services.CheckinService;
@@ -75,12 +78,24 @@ public class ApplicationTest {
 	@Autowired
 	private ChildRepository childRepository;
 
+	@Autowired
+	private RelationshipRepository relationshipRepository;
+
+	@Autowired
+	private ContactRepository contactRepository;
+
+	@Autowired
+	private UserRepository userRepository;
+
 	@Before
 	public void setup() throws Exception {
 		mockMvc = webAppContextSetup(webApplicationContext).build();
 		checkinRepository.deleteAllInBatch();
 		checkoutRepository.deleteAllInBatch();
+		relationshipRepository.deleteAllInBatch();
+		contactRepository.deleteAllInBatch();
 		childRepository.deleteAllInBatch();
+		userRepository.deleteAllInBatch();
 
 		child = childRepository.save(new Child(CHILD_ID));
 	}

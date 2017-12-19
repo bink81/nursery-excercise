@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,6 +20,10 @@ public class Child {
 
 	@Column(nullable = false)
 	private String name;
+
+	@Column(nullable = false)
+	@Embedded
+	private Address address;
 
 	@OneToMany(mappedBy = "child", fetch = FetchType.LAZY)
 	private Set<Checkin> checkins = new HashSet<>();
@@ -58,7 +63,15 @@ public class Child {
 
 	@Override
 	public String toString() {
-		return "Child [id=" + id + ", name=" + name + ", checkins=" + checkins + ", checkouts=" + checkouts
-				+ ", checkedin=" + checkedin + "]";
+		return "Child [id=" + id + ", name=" + name + ", address=" + address + ", checkins=" + checkins + ", checkouts="
+				+ checkouts + ", checkedin=" + checkedin + "]";
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 }
