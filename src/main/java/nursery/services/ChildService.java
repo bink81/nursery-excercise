@@ -60,10 +60,6 @@ public class ChildService {
 	}
 
 	public void saveUser(User user) {
-		// Set<Contact> relationships = user.getContacts();
-		// for (Contact relationship : relationships) {
-		// contactRepository.save(relationship);
-		// }
 		userRepository.save(user);
 	}
 }
