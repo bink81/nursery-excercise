@@ -101,55 +101,56 @@ public class ApplicationTest {
 	}
 
 	@Test
-	public void childFound() throws Exception {
+	public void givenAlreadyCreatedChild_whenQueryForItsId_thenItIsFound() throws Exception {
 		mockMvc.perform(get(CHILDREN_PATH + child.getId()).contentType(contentType)).andExpect(status().isOk())
 				.andExpect(content().contentType(contentType));
 	}
 
 	@Test
-	public void childrenNonEmpty() throws Exception {
+	public void givenAlreadyCreatedChild_whenQueryForAll_thenOneIsFound() throws Exception {
 		mockMvc.perform(get(CHILDREN_PATH).contentType(contentType)).andExpect(jsonPath("$", hasSize(1)));
 	}
 
 	@Test
-	public void childNotFound() throws Exception {
+	public void givenAlreadyCreatedChild_whenQueryForAnotherId_thenItIsNotFound() throws Exception {
 		mockMvc.perform(get(CHILDREN_PATH + MISSING_CHILD_ID).contentType(contentType))
 				.andExpect(status().isNotFound());
 	}
 
 	@Test
-	public void childNotFoundDuringCheckin() throws Exception {
+	public void givenAlreadyCreatedChild_whenCheckingIn_thenItIsNotFound() throws Exception {
 		mockMvc.perform(post(CHILDREN_PATH + MISSING_CHILD_ID + CHECKINS_PATH).contentType(contentType))
 				.andExpect(status().isNotFound());
 	}
 
 	@Test
-	public void childNotFoundDuringCheckout() throws Exception {
+	public void givenAlreadyCreatedChild_whenCheckingOut_thenItIsNotFound() throws Exception {
 		mockMvc.perform(post(CHILDREN_PATH + MISSING_CHILD_ID + CHECKOUTS_PATH).contentType(contentType))
 				.andExpect(status().isNotFound());
 	}
 
 	@Test
-	public void childChecksOut() throws Exception {
+	public void givenAlreadyCreatedChild_whenCheckingOut_thenItCheckoutIsCreated() throws Exception {
 		checkinService.createCheckin(child.getId());
+
 		mockMvc.perform(post(CHILDREN_PATH + child.getId() + CHECKOUTS_PATH).contentType(contentType))
 				.andExpect(status().isCreated());
 	}
 
 	@Test
-	public void childAlreadyCheckedOut() throws Exception {
+	public void givenCheckedOutChild_whenCheckingOut_thenErrorIsShown() throws Exception {
 		mockMvc.perform(post(CHILDREN_PATH + child.getId() + CHECKOUTS_PATH).contentType(contentType))
 				.andExpect(status().isMethodNotAllowed());
 	}
 
 	@Test
-	public void childChecksIn() throws Exception {
+	public void givenCheckedOutChild_whenCheckingIn_thenCheckinIsCreated() throws Exception {
 		mockMvc.perform(post(CHILDREN_PATH + child.getId() + CHECKINS_PATH).contentType(contentType))
 				.andExpect(status().isCreated());
 	}
 
 	@Test
-	public void childAlreadyCheckedIn() throws Exception {
+	public void givenCheckedInChild_whenCheckingIn_thenErrorIsShown() throws Exception {
 		checkinService.createCheckin(child.getId());
 
 		mockMvc.perform(post(CHILDREN_PATH + child.getId() + CHECKINS_PATH).contentType(contentType))
@@ -157,7 +158,7 @@ public class ApplicationTest {
 	}
 
 	@Test
-	public void showAllAttendance() throws Exception {
+	public void givenChildWithCheckinsAndCheckouts_whenReportingAll_thenAllAreShown() throws Exception {
 		checkinService.createCheckin(child.getId());
 		checkoutService.createCheckout(child.getId());
 		checkinService.createCheckin(child.getId());
@@ -165,11 +166,11 @@ public class ApplicationTest {
 
 		mockMvc.perform(
 				get(REPORT_PATH).param(START_PARAMETER, ZERO).param(STOP_PARAMETER, ZERO).contentType(contentType))
-				.andExpect(jsonPath("$.checkins", hasSize(2)));
+				.andExpect(jsonPath("$.checkins", hasSize(2))).andExpect(jsonPath("$.checkouts", hasSize(2)));
 	}
 
 	@Test
-	public void showOneAttendance() throws Exception {
+	public void givenChildWithCheckinsAndCheckouts_whenReportingSubset_thenOneIsShown() throws Exception {
 		Checkin first = checkinService.createCheckin(child.getId());
 		checkoutService.createCheckout(child.getId());
 		checkinService.createCheckin(child.getId());
@@ -181,7 +182,7 @@ public class ApplicationTest {
 	}
 
 	@Test
-	public void showNoAttendance() throws Exception {
+	public void givenChildWithCheckinsAndCheckouts_whenReportingSubset_thenNoneIsShown() throws Exception {
 		Checkin first = checkinService.createCheckin(child.getId());
 		checkoutService.createCheckout(child.getId());
 		checkinService.createCheckin(child.getId());
