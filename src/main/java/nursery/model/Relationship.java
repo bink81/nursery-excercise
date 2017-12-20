@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Relationship {
 
@@ -18,6 +20,7 @@ public class Relationship {
 	private RelationshipType relationshipType;
 
 	@ManyToOne
+	@JsonIgnore
 	private Contact contact;
 
 	@OneToOne

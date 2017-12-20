@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Checkin {
 	@Id
@@ -13,6 +15,7 @@ public class Checkin {
 	private Long id;
 
 	@ManyToOne
+	@JsonIgnore
 	private Child child;
 
 	@Column(nullable = false)

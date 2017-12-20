@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Contact {
 
@@ -30,6 +32,7 @@ public class Contact {
 	private Set<Relationship> relationships = new HashSet<>();
 
 	@ManyToOne
+	@JsonIgnore
 	private User user;
 
 	// for JPA
