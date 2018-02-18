@@ -10,7 +10,7 @@ import nursery.model.Child;
 
 @Repository
 public interface CheckinRepository extends JpaRepository<Checkin, Long> {
-	Collection<Checkin> findByChild(Child child);
+    Collection<Checkin> findByChild(Child child);
 
-	Collection<Checkin> findByTimestampBetween(long start, long stop);
+    Collection<Checkin> findByTimestampBetween(long start, long stop);
 }

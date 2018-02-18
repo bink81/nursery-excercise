@@ -9,5 +9,5 @@ import nursery.model.Child;
 
 @Repository
 public interface ChildRepository extends JpaRepository<Child, Long> {
-	Collection<Child> findByCheckedin(boolean checkedin);
+    Collection<Child> findByCheckedin(boolean checkedin);
 }

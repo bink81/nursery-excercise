@@ -15,20 +15,21 @@ import nursery.services.ChildService;
 @RestController
 @RequestMapping("/children")
 public class ChildController {
-	private final ChildService childService;
+    private final ChildService childService;
 
-	@Autowired
-	ChildController(ChildService childRepository) {
-		this.childService = childRepository;
-	}
+    @Autowired
+    ChildController(ChildService childRepository) {
+        this.childService = childRepository;
+    }
 
-	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
-	Child findChild(@PathVariable Long id) {
-		return childService.findChild(id);
-	}
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    Child findChild(@PathVariable Long id) {
+        return this.childService.findChild(id);
+    }
 
-	@RequestMapping(method = RequestMethod.GET)
-	Collection<Child> findChildren(@RequestParam(required = false, value = "checkedin") Boolean checkedin) {
-		return childService.findChildren(checkedin);
-	}
+    @RequestMapping(method = RequestMethod.GET)
+    Collection<Child> findChildren(
+            @RequestParam(required = false, value = "checkedin") Boolean checkedin) {
+        return this.childService.findChildren(checkedin);
+    }
 }

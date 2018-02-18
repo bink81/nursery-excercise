@@ -13,29 +13,31 @@ import nursery.model.Child;
 @Service
 @Transactional
 public class CheckoutService {
-	private final CheckoutRepository checkoutRepository;
+    private final CheckoutRepository checkoutRepository;
 
-	private final ChildService childService;
+    private final ChildService childService;
 
-	@Autowired
-	CheckoutService(CheckoutRepository checkinRepository, ChildService childRepository) {
-		this.checkoutRepository = checkinRepository;
-		this.childService = childRepository;
-	}
+    @Autowired
+    CheckoutService(CheckoutRepository checkinRepository,
+            ChildService childRepository) {
+        this.checkoutRepository = checkinRepository;
+        this.childService = childRepository;
+    }
 
-	public Collection<Checkout> findByChild(Long childId) {
-		Child child = childService.findChild(childId);
-		return checkoutRepository.findByChild(child);
-	}
+    public Collection<Checkout> findByChild(Long childId) {
+        final Child child = this.childService.findChild(childId);
+        return this.checkoutRepository.findByChild(child);
+    }
 
-	public Checkout createCheckout(Long childId) {
-		Child child = childService.findChild(childId);
-		if (!child.getCheckedin()) {
-			throw new CheckoutException(childId);
-		}
-		child.setCheckedin(false);
-		childService.saveChild(child);
+    public Checkout createCheckout(Long childId) {
+        final Child child = this.childService.findChild(childId);
+        if (!child.getCheckedin()) {
+            throw new CheckoutException(childId);
+        }
+        child.setCheckedin(false);
+        this.childService.saveChild(child);
 
-		return checkoutRepository.save(new Checkout(child, System.currentTimeMillis()));
-	}
+        return this.checkoutRepository
+                .save(new Checkout(child, System.currentTimeMillis()));
+    }
 }

@@ -13,51 +13,51 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class User {
 
-	@Id
-	@GeneratedValue
-	private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	private String username;
+    private String username;
 
-	@JsonIgnore
-	private String password;
+    @JsonIgnore
+    private String password;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private Set<Contact> contacts;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Contact> contacts;
 
-	// for JPA
-	public User() {
-	}
+    // for JPA
+    public User() {
+    }
 
-	public User(String name, Set<Contact> contacts, String password) {
-		super();
-		this.setName(name);
-		this.setContacts(contacts);
-		this.password = password;
-	}
+    public User(String name, Set<Contact> contacts, String password) {
+        super();
+        this.setName(name);
+        this.setContacts(contacts);
+        this.password = password;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return this.id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return username;
-	}
+    public String getName() {
+        return this.username;
+    }
 
-	public void setName(String name) {
-		this.username = name;
-	}
+    public void setName(String name) {
+        this.username = name;
+    }
 
-	public Set<Contact> getContacts() {
-		return contacts;
-	}
+    public Set<Contact> getContacts() {
+        return this.contacts;
+    }
 
-	public void setContacts(Set<Contact> contacts) {
-		this.contacts = contacts;
-	}
+    public void setContacts(Set<Contact> contacts) {
+        this.contacts = contacts;
+    }
 
 }

@@ -24,42 +24,46 @@ import nursery.services.ChildService;
 @SpringBootApplication
 public class Application {
 
-	public static void main(String[] args) throws Exception {
-		SpringApplication.run(Application.class, args);
-	}
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(Application.class, args);
+    }
 
-	// demo data
-	@Bean
-	CommandLineRunner init(ChildService childService, CheckinService checkinService, CheckoutService checkoutService) {
-		Child child1 = childService.saveChild(new Child("1"));
-		checkinService.createCheckin(child1.getId());
+    // demo data
+    @Bean
+    CommandLineRunner init(ChildService childService,
+            CheckinService checkinService, CheckoutService checkoutService) {
+        final Child child1 = childService.saveChild(new Child("1"));
+        checkinService.createCheckin(child1.getId());
 
-		Child child2 = childService.saveChild(new Child("2"));
-		checkinService.createCheckin(child2.getId());
-		checkoutService.createCheckout(child2.getId());
+        final Child child2 = childService.saveChild(new Child("2"));
+        checkinService.createCheckin(child2.getId());
+        checkoutService.createCheckout(child2.getId());
 
-		Child child3 = childService.saveChild(new Child("3"));
-		checkinService.createCheckin(child3.getId());
-		checkoutService.createCheckout(child3.getId());
-		checkinService.createCheckin(child3.getId());
+        final Child child3 = childService.saveChild(new Child("3"));
+        checkinService.createCheckin(child3.getId());
+        checkoutService.createCheckout(child3.getId());
+        checkinService.createCheckin(child3.getId());
 
-		Set<Contact> contacts = new HashSet<>();
-		User user = new User("aaaaaa", contacts, "123");
+        final Set<Contact> contacts = new HashSet<>();
+        final User user = new User("aaaaaa", contacts, "123");
 
-		Contact emptyContact = new Contact("empty", null, Collections.emptySet());
-		childService.saveContact(emptyContact);
+        final Contact emptyContact = new Contact("empty", null,
+                Collections.emptySet());
+        childService.saveContact(emptyContact);
 
-		Address address = new Address("aaaaaa");
-		Set<Relationship> relationships = new HashSet<>();
-		Contact contact = new Contact("123", address, relationships);
-		relationships.add(new Relationship(RelationshipType.MOTHER, contact, child1));
-		relationships.add(new Relationship(RelationshipType.GRANDMA, contact, child2));
-		childService.saveContact(contact);
-		contacts.add(contact);
+        final Address address = new Address("aaaaaa");
+        final Set<Relationship> relationships = new HashSet<>();
+        final Contact contact = new Contact("123", address, relationships);
+        relationships.add(
+                new Relationship(RelationshipType.MOTHER, contact, child1));
+        relationships.add(
+                new Relationship(RelationshipType.GRANDMA, contact, child2));
+        childService.saveContact(contact);
+        contacts.add(contact);
 
-		childService.saveUser(user);
-		contact.setUser(user);
-		childService.saveContact(contact);
-		return null;
-	}
+        childService.saveUser(user);
+        contact.setUser(user);
+        childService.saveContact(contact);
+        return null;
+    }
 }

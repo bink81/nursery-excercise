@@ -14,20 +14,20 @@ import nursery.model.Contact;
 @RestController
 @RequestMapping("/contacts")
 public class ContactController {
-	private final ContactRepository contactRepository;
+    private final ContactRepository contactRepository;
 
-	@Autowired
-	ContactController(ContactRepository childRepository) {
-		this.contactRepository = childRepository;
-	}
+    @Autowired
+    ContactController(ContactRepository childRepository) {
+        this.contactRepository = childRepository;
+    }
 
-	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
-	Contact findChild(@PathVariable Long id) {
-		return contactRepository.findOne(id);
-	}
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    Contact findChild(@PathVariable Long id) {
+        return this.contactRepository.findOne(id);
+    }
 
-	@RequestMapping(method = RequestMethod.GET)
-	Collection<Contact> findChildren() {
-		return contactRepository.findAll();
-	}
+    @RequestMapping(method = RequestMethod.GET)
+    Collection<Contact> findChildren() {
+        return this.contactRepository.findAll();
+    }
 }

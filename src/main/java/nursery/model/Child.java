@@ -14,64 +14,65 @@ import javax.persistence.OneToMany;
 @Entity
 public class Child {
 
-	@Id
-	@GeneratedValue
-	private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	@Column(nullable = false)
-	private String name;
+    @Column(nullable = false)
+    private String name;
 
-	@Column(nullable = false)
-	@Embedded
-	private Address address;
+    @Column(nullable = false)
+    @Embedded
+    private Address address;
 
-	@OneToMany(mappedBy = "child", fetch = FetchType.LAZY)
-	private Set<Checkin> checkins = new HashSet<>();
+    @OneToMany(mappedBy = "child", fetch = FetchType.LAZY)
+    private final Set<Checkin> checkins = new HashSet<>();
 
-	@OneToMany(mappedBy = "child", fetch = FetchType.LAZY)
-	private Set<Checkin> checkouts = new HashSet<>();
+    @OneToMany(mappedBy = "child", fetch = FetchType.LAZY)
+    private final Set<Checkin> checkouts = new HashSet<>();
 
-	private boolean checkedin;
+    private boolean checkedin;
 
-	public boolean getCheckedin() {
-		return checkedin;
-	}
+    public boolean getCheckedin() {
+        return this.checkedin;
+    }
 
-	public void setCheckedin(boolean checkedin) {
-		this.checkedin = checkedin;
-	}
+    public void setCheckedin(boolean checkedin) {
+        this.checkedin = checkedin;
+    }
 
-	public Child(String name) {
-		this.name = name;
-	}
+    public Child(String name) {
+        this.name = name;
+    }
 
-	// for JPA
-	protected Child() {
-	}
+    // for JPA
+    protected Child() {
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return this.id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	@Override
-	public String toString() {
-		return "Child [id=" + id + ", name=" + name + ", address=" + address + ", checkins=" + checkins + ", checkouts="
-				+ checkouts + ", checkedin=" + checkedin + "]";
-	}
+    @Override
+    public String toString() {
+        return "Child [id=" + this.id + ", name=" + this.name + ", address="
+                + this.address + ", checkins=" + this.checkins + ", checkouts="
+                + this.checkouts + ", checkedin=" + this.checkedin + "]";
+    }
 
-	public Address getAddress() {
-		return address;
-	}
+    public Address getAddress() {
+        return this.address;
+    }
 
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 }

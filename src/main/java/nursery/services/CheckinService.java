@@ -13,29 +13,31 @@ import nursery.model.Child;
 @Service
 @Transactional
 public class CheckinService {
-	private final CheckinRepository checkinRepository;
+    private final CheckinRepository checkinRepository;
 
-	private final ChildService childService;
+    private final ChildService childService;
 
-	@Autowired
-	CheckinService(CheckinRepository checkinRepository, ChildService childRepository) {
-		this.checkinRepository = checkinRepository;
-		this.childService = childRepository;
-	}
+    @Autowired
+    CheckinService(CheckinRepository checkinRepository,
+            ChildService childRepository) {
+        this.checkinRepository = checkinRepository;
+        this.childService = childRepository;
+    }
 
-	public Collection<Checkin> findByChild(Long childId) {
-		Child child = childService.findChild(childId);
-		return checkinRepository.findByChild(child);
-	}
+    public Collection<Checkin> findByChild(Long childId) {
+        final Child child = this.childService.findChild(childId);
+        return this.checkinRepository.findByChild(child);
+    }
 
-	public Checkin createCheckin(Long childId) {
-		Child child = childService.findChild(childId);
-		if (child.getCheckedin()) {
-			throw new CheckinException(childId);
-		}
-		child.setCheckedin(true);
-		childService.saveChild(child);
+    public Checkin createCheckin(Long childId) {
+        final Child child = this.childService.findChild(childId);
+        if (child.getCheckedin()) {
+            throw new CheckinException(childId);
+        }
+        child.setCheckedin(true);
+        this.childService.saveChild(child);
 
-		return checkinRepository.save(new Checkin(child, System.currentTimeMillis()));
-	}
+        return this.checkinRepository
+                .save(new Checkin(child, System.currentTimeMillis()));
+    }
 }

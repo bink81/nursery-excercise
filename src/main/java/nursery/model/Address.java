@@ -5,23 +5,23 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class Address {
-	@Column
-	private String street;
+    @Column
+    private String street;
 
-	public String getStreet() {
-		return street;
-	}
+    public String getStreet() {
+        return this.street;
+    }
 
-	public void setStreet(String street) {
-		this.street = street;
-	}
+    public void setStreet(String street) {
+        this.street = street;
+    }
 
-	// for JPA
-	public Address() {
-	}
+    // for JPA
+    public Address() {
+    }
 
-	public Address(String street) {
-		super();
-		this.street = street;
-	}
+    public Address(String street) {
+        super();
+        this.street = street;
+    }
 }

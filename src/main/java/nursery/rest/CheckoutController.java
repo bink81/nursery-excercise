@@ -18,23 +18,24 @@ import nursery.services.CheckoutService;
 @RequestMapping("/children/{childId}/checkouts")
 class CheckoutController {
 
-	private final CheckoutService checkoutService;
+    private final CheckoutService checkoutService;
 
-	@Autowired
-	CheckoutController(CheckoutService checkinService) {
-		this.checkoutService = checkinService;
-	}
+    @Autowired
+    CheckoutController(CheckoutService checkinService) {
+        this.checkoutService = checkinService;
+    }
 
-	@RequestMapping(method = RequestMethod.GET)
-	Collection<Checkout> readChildren(@PathVariable Long childId) {
-		return checkoutService.findByChild(childId);
-	}
+    @RequestMapping(method = RequestMethod.GET)
+    Collection<Checkout> readChildren(@PathVariable Long childId) {
+        return this.checkoutService.findByChild(childId);
+    }
 
-	@RequestMapping(method = RequestMethod.POST)
-	ResponseEntity<Checkout> add(@PathVariable Long childId) {
-		Checkout newCheckout = checkoutService.createCheckout(childId);
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newCheckout.getId())
-				.toUri();
-		return ResponseEntity.created(location).build();
-	}
+    @RequestMapping(method = RequestMethod.POST)
+    ResponseEntity<Checkout> add(@PathVariable Long childId) {
+        final Checkout newCheckout = this.checkoutService
+                .createCheckout(childId);
+        final URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(newCheckout.getId()).toUri();
+        return ResponseEntity.created(location).build();
+    }
 }

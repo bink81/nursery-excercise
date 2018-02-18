@@ -18,23 +18,23 @@ import nursery.services.CheckinService;
 @RequestMapping("/children/{childId}/checkins")
 class CheckinController {
 
-	private final CheckinService checkinService;
+    private final CheckinService checkinService;
 
-	@Autowired
-	CheckinController(CheckinService checkinService) {
-		this.checkinService = checkinService;
-	}
+    @Autowired
+    CheckinController(CheckinService checkinService) {
+        this.checkinService = checkinService;
+    }
 
-	@RequestMapping(method = RequestMethod.GET)
-	Collection<Checkin> readChildren(@PathVariable Long childId) {
-		return checkinService.findByChild(childId);
-	}
+    @RequestMapping(method = RequestMethod.GET)
+    Collection<Checkin> readChildren(@PathVariable Long childId) {
+        return this.checkinService.findByChild(childId);
+    }
 
-	@RequestMapping(method = RequestMethod.POST)
-	ResponseEntity<Checkin> add(@PathVariable Long childId) {
-		Checkin newCheckin = checkinService.createCheckin(childId);
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newCheckin.getId())
-				.toUri();
-		return ResponseEntity.created(location).build();
-	}
+    @RequestMapping(method = RequestMethod.POST)
+    ResponseEntity<Checkin> add(@PathVariable Long childId) {
+        final Checkin newCheckin = this.checkinService.createCheckin(childId);
+        final URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(newCheckin.getId()).toUri();
+        return ResponseEntity.created(location).build();
+    }
 }

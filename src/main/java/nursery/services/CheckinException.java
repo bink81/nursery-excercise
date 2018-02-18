@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
 class CheckinException extends RuntimeException {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public CheckinException(Long childId) {
-		super("Child '" + childId + "' is already checked in.");
-	}
+    public CheckinException(Long childId) {
+        super("Child '" + childId + "' is already checked in.");
+    }
 }

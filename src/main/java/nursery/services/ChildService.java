@@ -19,47 +19,47 @@ import nursery.model.User;
 @Service
 @Transactional
 public class ChildService {
-	@Autowired
-	private ChildRepository childRepository;
-	@Autowired
-	private ContactRepository contactRepository;
-	@Autowired
-	private RelationshipRepository relationshipRepository;
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private ChildRepository childRepository;
+    @Autowired
+    private ContactRepository contactRepository;
+    @Autowired
+    private RelationshipRepository relationshipRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	public Child findChild(Long id) {
-		Child child = childRepository.findOne(id);
-		if (child == null) {
-			throw new ChildNotFoundException(id);
-		}
-		return child;
-	}
+    public Child findChild(Long id) {
+        final Child child = this.childRepository.findOne(id);
+        if (child == null) {
+            throw new ChildNotFoundException(id);
+        }
+        return child;
+    }
 
-	public Collection<Child> findChildren(Boolean checkedin) {
-		if (checkedin == null) {
-			return childRepository.findAll();
-		}
-		return childRepository.findByCheckedin(checkedin);
-	}
+    public Collection<Child> findChildren(Boolean checkedin) {
+        if (checkedin == null) {
+            return this.childRepository.findAll();
+        }
+        return this.childRepository.findByCheckedin(checkedin);
+    }
 
-	public Child saveChild(Child child) {
-		return childRepository.save(child);
-	}
+    public Child saveChild(Child child) {
+        return this.childRepository.save(child);
+    }
 
-	public Collection<Child> findAllCheckedin(boolean checkedIn) {
-		return childRepository.findByCheckedin(checkedIn);
-	}
+    public Collection<Child> findAllCheckedin(boolean checkedIn) {
+        return this.childRepository.findByCheckedin(checkedIn);
+    }
 
-	public Contact saveContact(Contact contact) {
-		Set<Relationship> relationships = contact.getRelationships();
-		for (Relationship relationship : relationships) {
-			relationshipRepository.save(relationship);
-		}
-		return contactRepository.save(contact);
-	}
+    public Contact saveContact(Contact contact) {
+        final Set<Relationship> relationships = contact.getRelationships();
+        for (final Relationship relationship : relationships) {
+            this.relationshipRepository.save(relationship);
+        }
+        return this.contactRepository.save(contact);
+    }
 
-	public void saveUser(User user) {
-		userRepository.save(user);
-	}
+    public void saveUser(User user) {
+        this.userRepository.save(user);
+    }
 }

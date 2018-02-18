@@ -17,29 +17,33 @@ import nursery.model.Report;
 @RestController
 @RequestMapping("/report")
 class ReportController {
-	private final CheckinRepository checkinRepository;
-	private final CheckoutRepository checkoutRepository;
+    private final CheckinRepository checkinRepository;
+    private final CheckoutRepository checkoutRepository;
 
-	@Autowired
-	ReportController(CheckinRepository checkinRepository, CheckoutRepository checkoutRepository) {
-		this.checkinRepository = checkinRepository;
-		this.checkoutRepository = checkoutRepository;
-	}
+    @Autowired
+    ReportController(CheckinRepository checkinRepository,
+            CheckoutRepository checkoutRepository) {
+        this.checkinRepository = checkinRepository;
+        this.checkoutRepository = checkoutRepository;
+    }
 
-	@RequestMapping(method = RequestMethod.GET)
-	Report findCheckedInChildren(@RequestParam(required = true, value = "start") long start,
-			@RequestParam(required = true, value = "stop") long stop) {
-		Collection<Checkin> checkins;
-		Collection<Checkout> checkouts;
-		// show all for debugging purpose
-		if (start == 0 && stop == 0) {
-			checkins = checkinRepository.findAll();
-			checkouts = checkoutRepository.findAll();
-		} else {
-			checkins = checkinRepository.findByTimestampBetween(start, stop);
-			checkouts = checkoutRepository.findByTimestampBetween(start, stop);
-		}
-		Report report = new Report(start, stop, checkins, checkouts);
-		return report;
-	}
+    @RequestMapping(method = RequestMethod.GET)
+    Report findCheckedInChildren(
+            @RequestParam(required = true, value = "start") long start,
+            @RequestParam(required = true, value = "stop") long stop) {
+        Collection<Checkin> checkins;
+        Collection<Checkout> checkouts;
+        // show all for debugging purpose
+        if (start == 0 && stop == 0) {
+            checkins = this.checkinRepository.findAll();
+            checkouts = this.checkoutRepository.findAll();
+        } else {
+            checkins = this.checkinRepository.findByTimestampBetween(start,
+                    stop);
+            checkouts = this.checkoutRepository.findByTimestampBetween(start,
+                    stop);
+        }
+        final Report report = new Report(start, stop, checkins, checkouts);
+        return report;
+    }
 }

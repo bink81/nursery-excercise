@@ -10,41 +10,42 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Checkout {
-	@Id
-	@GeneratedValue
-	private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	@ManyToOne
-	@JsonIgnore
-	private Child child;
+    @ManyToOne
+    @JsonIgnore
+    private Child child;
 
-	@Column(nullable = false)
-	private long timestamp;
+    @Column(nullable = false)
+    private long timestamp;
 
-	// for JPA
-	protected Checkout() {
-	}
+    // for JPA
+    protected Checkout() {
+    }
 
-	public Checkout(Child child, long timestamp) {
-		super();
-		this.child = child;
-		this.timestamp = timestamp;
-	}
+    public Checkout(Child child, long timestamp) {
+        super();
+        this.child = child;
+        this.timestamp = timestamp;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return this.id;
+    }
 
-	public Long getTimestamp() {
-		return timestamp;
-	}
+    public Long getTimestamp() {
+        return this.timestamp;
+    }
 
-	public Long getChildId() {
-		return child.getId();
-	}
+    public Long getChildId() {
+        return this.child.getId();
+    }
 
-	@Override
-	public String toString() {
-		return "Checkout [id=" + id + ", child=" + child.getId() + ", timestamp=" + timestamp + "]";
-	}
+    @Override
+    public String toString() {
+        return "Checkout [id=" + this.id + ", child=" + this.child.getId()
+                + ", timestamp=" + this.timestamp + "]";
+    }
 }

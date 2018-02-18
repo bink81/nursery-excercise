@@ -12,44 +12,45 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Relationship {
 
-	@Id
-	@GeneratedValue
-	private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	@Column(nullable = false)
-	private RelationshipType relationshipType;
+    @Column(nullable = false)
+    private RelationshipType relationshipType;
 
-	@ManyToOne
-	@JsonIgnore
-	private Contact contact;
+    @ManyToOne
+    @JsonIgnore
+    private Contact contact;
 
-	@OneToOne
-	private Child child;
+    @OneToOne
+    private Child child;
 
-	// for JPA
-	public Relationship() {
-	}
+    // for JPA
+    public Relationship() {
+    }
 
-	public Relationship(RelationshipType relationshipType, Contact contact, Child child) {
-		super();
-		this.setRelationshipType(relationshipType);
-		this.contact = contact;
-		this.setChild(child);
-	}
+    public Relationship(RelationshipType relationshipType, Contact contact,
+            Child child) {
+        super();
+        this.setRelationshipType(relationshipType);
+        this.contact = contact;
+        this.setChild(child);
+    }
 
-	public RelationshipType getRelationshipType() {
-		return relationshipType;
-	}
+    public RelationshipType getRelationshipType() {
+        return this.relationshipType;
+    }
 
-	public void setRelationshipType(RelationshipType relationshipType) {
-		this.relationshipType = relationshipType;
-	}
+    public void setRelationshipType(RelationshipType relationshipType) {
+        this.relationshipType = relationshipType;
+    }
 
-	public Long getChildId() {
-		return child.getId();
-	}
+    public Long getChildId() {
+        return this.child.getId();
+    }
 
-	public void setChild(Child child) {
-		this.child = child;
-	}
+    public void setChild(Child child) {
+        this.child = child;
+    }
 }

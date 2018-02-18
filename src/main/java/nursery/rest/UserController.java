@@ -14,20 +14,20 @@ import nursery.model.User;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-	private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-	@Autowired
-	UserController(UserRepository childRepository) {
-		this.userRepository = childRepository;
-	}
+    @Autowired
+    UserController(UserRepository childRepository) {
+        this.userRepository = childRepository;
+    }
 
-	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
-	User findChild(@PathVariable Long id) {
-		return userRepository.findOne(id);
-	}
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    User findChild(@PathVariable Long id) {
+        return this.userRepository.findOne(id);
+    }
 
-	@RequestMapping(method = RequestMethod.GET)
-	Collection<User> findChildren() {
-		return userRepository.findAll();
-	}
+    @RequestMapping(method = RequestMethod.GET)
+    Collection<User> findChildren() {
+        return this.userRepository.findAll();
+    }
 }
