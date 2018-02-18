@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 class CheckoutException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
-    public CheckoutException(Long id) {
+    public CheckoutException(final Long id) {
         super("Child '" + id + "' is already checked out.");
     }
 }

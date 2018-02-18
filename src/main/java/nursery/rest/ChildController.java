@@ -18,18 +18,18 @@ public class ChildController {
     private final ChildService childService;
 
     @Autowired
-    ChildController(ChildService childRepository) {
+    ChildController(final ChildService childRepository) {
         this.childService = childRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    Child findChild(@PathVariable Long id) {
+    Child findChild(@PathVariable final Long id) {
         return this.childService.findChild(id);
     }
 
     @RequestMapping(method = RequestMethod.GET)
     Collection<Child> findChildren(
-            @RequestParam(required = false, value = "checkedin") Boolean checkedin) {
+            @RequestParam(required = false, value = "checkedin") final Boolean checkedin) {
         return this.childService.findChildren(checkedin);
     }
 }

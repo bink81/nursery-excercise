@@ -37,11 +37,11 @@ public class Child {
         return this.checkedin;
     }
 
-    public void setCheckedin(boolean checkedin) {
+    public void setCheckedin(final boolean checkedin) {
         this.checkedin = checkedin;
     }
 
-    public Child(String name) {
+    public Child(final String name) {
         this.name = name;
     }
 
@@ -57,7 +57,7 @@ public class Child {
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -72,7 +72,7 @@ public class Child {
         return this.address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(final Address address) {
         this.address = address;
     }
 }

@@ -21,17 +21,17 @@ class CheckinController {
     private final CheckinService checkinService;
 
     @Autowired
-    CheckinController(CheckinService checkinService) {
+    CheckinController(final CheckinService checkinService) {
         this.checkinService = checkinService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    Collection<Checkin> readChildren(@PathVariable Long childId) {
+    Collection<Checkin> readChildren(@PathVariable final Long childId) {
         return this.checkinService.findByChild(childId);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<Checkin> add(@PathVariable Long childId) {
+    ResponseEntity<Checkin> add(@PathVariable final Long childId) {
         final Checkin newCheckin = this.checkinService.createCheckin(childId);
         final URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(newCheckin.getId()).toUri();

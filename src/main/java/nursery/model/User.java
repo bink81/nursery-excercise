@@ -29,7 +29,8 @@ public class User {
     public User() {
     }
 
-    public User(String name, Set<Contact> contacts, String password) {
+    public User(final String name, final Set<Contact> contacts,
+            final String password) {
         super();
         this.setName(name);
         this.setContacts(contacts);
@@ -40,7 +41,7 @@ public class User {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -48,7 +49,7 @@ public class User {
         return this.username;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.username = name;
     }
 
@@ -56,7 +57,7 @@ public class User {
         return this.contacts;
     }
 
-    public void setContacts(Set<Contact> contacts) {
+    public void setContacts(final Set<Contact> contacts) {
         this.contacts = contacts;
     }
 

@@ -18,18 +18,18 @@ public class CheckoutService {
     private final ChildService childService;
 
     @Autowired
-    CheckoutService(CheckoutRepository checkinRepository,
-            ChildService childRepository) {
+    CheckoutService(final CheckoutRepository checkinRepository,
+            final ChildService childRepository) {
         this.checkoutRepository = checkinRepository;
         this.childService = childRepository;
     }
 
-    public Collection<Checkout> findByChild(Long childId) {
+    public Collection<Checkout> findByChild(final Long childId) {
         final Child child = this.childService.findChild(childId);
         return this.checkoutRepository.findByChild(child);
     }
 
-    public Checkout createCheckout(Long childId) {
+    public Checkout createCheckout(final Long childId) {
         final Child child = this.childService.findChild(childId);
         if (!child.getCheckedin()) {
             throw new CheckoutException(childId);

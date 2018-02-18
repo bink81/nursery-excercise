@@ -17,12 +17,12 @@ public class ContactController {
     private final ContactRepository contactRepository;
 
     @Autowired
-    ContactController(ContactRepository childRepository) {
+    ContactController(final ContactRepository childRepository) {
         this.contactRepository = childRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    Contact findChild(@PathVariable Long id) {
+    Contact findChild(@PathVariable final Long id) {
         return this.contactRepository.findOne(id);
     }
 

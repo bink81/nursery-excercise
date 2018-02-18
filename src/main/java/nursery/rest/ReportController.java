@@ -21,16 +21,16 @@ class ReportController {
     private final CheckoutRepository checkoutRepository;
 
     @Autowired
-    ReportController(CheckinRepository checkinRepository,
-            CheckoutRepository checkoutRepository) {
+    ReportController(final CheckinRepository checkinRepository,
+            final CheckoutRepository checkoutRepository) {
         this.checkinRepository = checkinRepository;
         this.checkoutRepository = checkoutRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     Report findCheckedInChildren(
-            @RequestParam(required = true, value = "start") long start,
-            @RequestParam(required = true, value = "stop") long stop) {
+            @RequestParam(required = true, value = "start") final long start,
+            @RequestParam(required = true, value = "stop") final long stop) {
         Collection<Checkin> checkins;
         Collection<Checkout> checkouts;
         // show all for debugging purpose

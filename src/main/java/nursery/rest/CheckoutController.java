@@ -21,17 +21,17 @@ class CheckoutController {
     private final CheckoutService checkoutService;
 
     @Autowired
-    CheckoutController(CheckoutService checkinService) {
+    CheckoutController(final CheckoutService checkinService) {
         this.checkoutService = checkinService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    Collection<Checkout> readChildren(@PathVariable Long childId) {
+    Collection<Checkout> readChildren(@PathVariable final Long childId) {
         return this.checkoutService.findByChild(childId);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<Checkout> add(@PathVariable Long childId) {
+    ResponseEntity<Checkout> add(@PathVariable final Long childId) {
         final Checkout newCheckout = this.checkoutService
                 .createCheckout(childId);
         final URI location = ServletUriComponentsBuilder.fromCurrentRequest()

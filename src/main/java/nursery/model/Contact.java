@@ -39,8 +39,8 @@ public class Contact {
     public Contact() {
     }
 
-    public Contact(String name, Address address,
-            Set<Relationship> relationships) {
+    public Contact(final String name, final Address address,
+            final Set<Relationship> relationships) {
         super();
         this.setName(name);
         this.setAddress(address);
@@ -52,7 +52,7 @@ public class Contact {
         return this.relationships;
     }
 
-    public void setRelationships(Set<Relationship> relationships) {
+    public void setRelationships(final Set<Relationship> relationships) {
         this.relationships = relationships;
     }
 
@@ -60,7 +60,7 @@ public class Contact {
         return this.address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(final Address address) {
         this.address = address;
     }
 
@@ -68,7 +68,7 @@ public class Contact {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -76,7 +76,7 @@ public class Contact {
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -84,7 +84,7 @@ public class Contact {
         return this.user != null ? this.user.getId() : null;
     }
 
-    public void setUser(User user) {
+    public void setUser(final User user) {
         this.user = user;
     }
 }

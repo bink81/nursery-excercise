@@ -30,8 +30,8 @@ public class Relationship {
     public Relationship() {
     }
 
-    public Relationship(RelationshipType relationshipType, Contact contact,
-            Child child) {
+    public Relationship(final RelationshipType relationshipType,
+            final Contact contact, final Child child) {
         super();
         this.setRelationshipType(relationshipType);
         this.contact = contact;
@@ -42,7 +42,7 @@ public class Relationship {
         return this.relationshipType;
     }
 
-    public void setRelationshipType(RelationshipType relationshipType) {
+    public void setRelationshipType(final RelationshipType relationshipType) {
         this.relationshipType = relationshipType;
     }
 
@@ -50,7 +50,7 @@ public class Relationship {
         return this.child.getId();
     }
 
-    public void setChild(Child child) {
+    public void setChild(final Child child) {
         this.child = child;
     }
 }

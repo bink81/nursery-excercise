@@ -25,7 +25,7 @@ public class Checkin {
     protected Checkin() {
     }
 
-    public Checkin(Child child, long timestamp) {
+    public Checkin(final Child child, final long timestamp) {
         super();
         this.child = child;
         this.timestamp = timestamp;

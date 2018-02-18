@@ -24,14 +24,15 @@ import nursery.services.ChildService;
 @SpringBootApplication
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(final String[] args) throws Exception {
         SpringApplication.run(Application.class, args);
     }
 
     // demo data
     @Bean
-    CommandLineRunner init(ChildService childService,
-            CheckinService checkinService, CheckoutService checkoutService) {
+    CommandLineRunner init(final ChildService childService,
+            final CheckinService checkinService,
+            final CheckoutService checkoutService) {
         final Child child1 = childService.saveChild(new Child("1"));
         checkinService.createCheckin(child1.getId());
 

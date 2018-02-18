@@ -28,7 +28,7 @@ public class ChildService {
     @Autowired
     private UserRepository userRepository;
 
-    public Child findChild(Long id) {
+    public Child findChild(final Long id) {
         final Child child = this.childRepository.findOne(id);
         if (child == null) {
             throw new ChildNotFoundException(id);
@@ -36,22 +36,22 @@ public class ChildService {
         return child;
     }
 
-    public Collection<Child> findChildren(Boolean checkedin) {
+    public Collection<Child> findChildren(final Boolean checkedin) {
         if (checkedin == null) {
             return this.childRepository.findAll();
         }
         return this.childRepository.findByCheckedin(checkedin);
     }
 
-    public Child saveChild(Child child) {
+    public Child saveChild(final Child child) {
         return this.childRepository.save(child);
     }
 
-    public Collection<Child> findAllCheckedin(boolean checkedIn) {
+    public Collection<Child> findAllCheckedin(final boolean checkedIn) {
         return this.childRepository.findByCheckedin(checkedIn);
     }
 
-    public Contact saveContact(Contact contact) {
+    public Contact saveContact(final Contact contact) {
         final Set<Relationship> relationships = contact.getRelationships();
         for (final Relationship relationship : relationships) {
             this.relationshipRepository.save(relationship);
@@ -59,7 +59,7 @@ public class ChildService {
         return this.contactRepository.save(contact);
     }
 
-    public void saveUser(User user) {
+    public void saveUser(final User user) {
         this.userRepository.save(user);
     }
 }

@@ -17,12 +17,12 @@ public class UserController {
     private final UserRepository userRepository;
 
     @Autowired
-    UserController(UserRepository childRepository) {
+    UserController(final UserRepository childRepository) {
         this.userRepository = childRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    User findChild(@PathVariable Long id) {
+    User findChild(@PathVariable final Long id) {
         return this.userRepository.findOne(id);
     }
 

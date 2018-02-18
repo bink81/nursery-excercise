@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 class ChildNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
-    public ChildNotFoundException(Long childId) {
+    public ChildNotFoundException(final Long childId) {
         super("could not find child '" + childId + "'.");
     }
 }

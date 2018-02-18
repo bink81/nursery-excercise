@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 class CheckinException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
-    public CheckinException(Long childId) {
+    public CheckinException(final Long childId) {
         super("Child '" + childId + "' is already checked in.");
     }
 }

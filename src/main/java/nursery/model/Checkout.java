@@ -25,7 +25,7 @@ public class Checkout {
     protected Checkout() {
     }
 
-    public Checkout(Child child, long timestamp) {
+    public Checkout(final Child child, final long timestamp) {
         super();
         this.child = child;
         this.timestamp = timestamp;

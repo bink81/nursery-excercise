@@ -12,7 +12,7 @@ public class Address {
         return this.street;
     }
 
-    public void setStreet(String street) {
+    public void setStreet(final String street) {
         this.street = street;
     }
 
@@ -20,7 +20,7 @@ public class Address {
     public Address() {
     }
 
-    public Address(String street) {
+    public Address(final String street) {
         super();
         this.street = street;
     }

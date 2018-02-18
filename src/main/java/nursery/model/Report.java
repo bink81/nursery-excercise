@@ -9,8 +9,9 @@ public class Report {
     private final long start;
     private final long stop;
 
-    public Report(long start, long stop, Collection<Checkin> checkins,
-            Collection<Checkout> checkouts) {
+    public Report(final long start, final long stop,
+            final Collection<Checkin> checkins,
+            final Collection<Checkout> checkouts) {
         this.start = start;
         this.stop = stop;
         this.checkins = checkins;

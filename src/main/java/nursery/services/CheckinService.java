@@ -18,18 +18,18 @@ public class CheckinService {
     private final ChildService childService;
 
     @Autowired
-    CheckinService(CheckinRepository checkinRepository,
-            ChildService childRepository) {
+    CheckinService(final CheckinRepository checkinRepository,
+            final ChildService childRepository) {
         this.checkinRepository = checkinRepository;
         this.childService = childRepository;
     }
 
-    public Collection<Checkin> findByChild(Long childId) {
+    public Collection<Checkin> findByChild(final Long childId) {
         final Child child = this.childService.findChild(childId);
         return this.checkinRepository.findByChild(child);
     }
 
-    public Checkin createCheckin(Long childId) {
+    public Checkin createCheckin(final Long childId) {
         final Child child = this.childService.findChild(childId);
         if (child.getCheckedin()) {
             throw new CheckinException(childId);
